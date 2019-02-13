@@ -3,8 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
 Nextflow-中文文档
 =====================================================
+
+
+:作者: `Henri E. Bal , Jennifer G. Steiner , Andrew S. Tanenbaum <https://github.com/nextflow-io/nextflow>`_
+:翻译: `lidanqing <https://github.com/lidanqing123>`_
+ 
+.. Note::
+   
+   这不是一个官方的文档.  官方的文档可以 `在此获得 <https://www.nextflow.io/docs/latest/index.html>`_。
+
 
 .. toctree::
    :maxdepth: 2
