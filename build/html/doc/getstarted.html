@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>快速开始 &mdash; Nextflow-ZH-documentation 0.0.1 文档</title>
+  <title>开始 &mdash; Nextflow-ZH-documentation 0.0.1 文档</title>
   
 
   
@@ -83,10 +83,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">快速开始</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">开始</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">所需环境</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">第一个脚本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">第一个脚本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modify-and-resume">Modify and resume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-parameters">Pipeline parameters</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">基本理念</a></li>
@@ -155,13 +159,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>快速开始</li>
+      <li>开始</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/doc/getstarted.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/doc/getstarted.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,15 +179,84 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>快速开始<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<h1>开始<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="section" id="id2">
 <h2>所需环境<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 </div>
 <div class="section" id="id3">
 <h2>安装<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>Nextflow是一个独立的可执行包, 这意味着它不需要特殊的安装过程.</p>
+<p>它仅仅简单的两步:</p>
+<ol class="arabic simple">
+<li>下载可执行包. 复制粘贴后面的命令到你的终端窗口中:<code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>. 它将会在当前目录创建一个可执行文件 <code class="docutils literal notranslate"><span class="pre">nextflow</span></code>.</li>
+<li>(此步可选)将 <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> 文件转移到 <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> 变量可以找到的目录中.(这仅仅是为了避免你每次运行它的时候都需要记住或输入 <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> 的绝对路径).</li>
+</ol>
+<div class="admonition tip">
+<p class="first admonition-title">小技巧</p>
+<p class="last">在你没有安装 <code class="docutils literal notranslate"><span class="pre">wget</span></code> 的情况下, 你可以使用 <code class="docutils literal notranslate"><span class="pre">curl</span></code> 来代替, 在命令行中输入后面的命令: <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-s</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.</p>
+</div>
 </div>
 <div class="section" id="id4">
 <h2>第一个脚本<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>将下面的例子复制到你习惯的文本编辑器中, 然后保存到名字为 <code class="docutils literal notranslate"><span class="pre">tutorial.nf</span></code> 的文件中.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+
+<span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
+
+<span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span> <span class="n">mode</span> <span class="n">flatten</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+
+<span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
+
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span> <span class="n">result</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>这个脚本定义了2个processes.</p>
+<p>在终端中输入下面的命令来执行这个脚本:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
+</pre></div>
+</div>
+<p>它将输出一些东西,类似下面的文本:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.01.0
+Launching `tutorial.nf` [prickly_goldwasser] - revision: 361b274147
+[warm up] executor &gt; local
+[4b/65537c] Submitted process &gt; splitLetters
+[7d/c27fbe] Submitted process &gt; convertToUpper (1)
+[62/9488a7] Submitted process &gt; convertToUpper (2)
+WORLD!
+HELLO
+</pre></div>
+</div>
+<p>可以看到,第一个process执行了一次,而第二个执行了两次. 最后, 结果字符串被打印出来.</p>
+<div class="section" id="modify-and-resume">
+<h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="pipeline-parameters">
+<h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="永久链接至标题">¶</a></h3>
+</div>
 </div>
 </div>
 

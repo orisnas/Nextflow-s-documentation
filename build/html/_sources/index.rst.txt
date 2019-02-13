@@ -20,28 +20,28 @@ Nextflow-中文文档
    :maxdepth: 2
    :caption: Contents:
 
-   doc/getstarted.md
-   doc/basic.md
-   doc/script.md
-   doc/process.md
-   doc/channel.md
-   doc/operator.md
-   doc/executor.md
-   doc/config.md
-   doc/awscloud.md
-   doc/amazons3.md
-   doc/google.md
-   doc/conda.md
-   doc/docker.md
-   doc/singularity.md
-   doc/ignite.md
-   doc/kubernetes.md
-   doc/tracing.md
-   doc/sharing.md
-   doc/metadata.md
-   doc/mail.md
-   doc/example.md
-   doc/faq.md
+   doc/getstarted
+   doc/basic
+   doc/script
+   doc/process
+   doc/channel
+   doc/operator
+   doc/executor
+   doc/config
+   doc/awscloud
+   doc/amazons3
+   doc/google
+   doc/conda
+   doc/docker
+   doc/singularity
+   doc/ignite
+   doc/kubernetes
+   doc/tracing
+   doc/sharing
+   doc/metadata
+   doc/mail
+   doc/example
+   doc/faq
 
 
 
