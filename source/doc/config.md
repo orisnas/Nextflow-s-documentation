@@ -1,6 +1,6 @@
-# Configuration
-## Configuration file
+# 配置
+## 配置文件
 ## Config scopes
 ## Config profiles
-## Environment variables
+## 环境变量
 
