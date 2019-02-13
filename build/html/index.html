@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="hello,world" href="hello.html" /> 
+    <link rel="next" title="Get started" href="hello.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,7 +82,28 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="hello.html">hello,world</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#basic-concepts">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#nextflow-scripting">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#processes">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#channels">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#operators">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#executors">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#amazon-cloud">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#amazon-s3-storage">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#google-cloud">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#conda-environments">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#docker-containers">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#singularity-containers">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#apache-ignite">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#id13">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#tracing-visualisation">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#pipeline-sharing">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#workflow-introspection">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#mail-notifications">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#faq">FAQ</a></li>
 </ul>
 
             
@@ -152,8 +173,186 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="hello.html">hello,world</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hello.html#test-markdown">test markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#your-first-script">Your first script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#basic-concepts">Basic concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#processes-and-channels">Processes and channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#execution-abstraction">Execution abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#scripting-language">Scripting language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#configuration-options">Configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#nextflow-scripting">Nextflow scripting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#language-basics">Language basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#closures">Closures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#regular-expressions">Regular expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#files-and-i-o">Files and I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#processes">Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#script">Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#when">When</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#directives">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#channels">Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#channel-types">Channel types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#channel-factory">Channel factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#binding-values">Binding values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#observing-events">Observing events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#operators">Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#filtering-operators">Filtering operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#transforming-operators">Transforming operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#splitting-operators">Splitting operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#combining-operators">Combining operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#forking-operators">Forking operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#maths-operators">Maths operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#other-operators">Other operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#executors">Executors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#slurm">SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#nqsii">NQSII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#htcondor">HTCondor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#ignite">Ignite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#kubernetes">Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#aws-batch">AWS Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#google-pipelines">Google Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#ga4gh-tes">GA4GH TES</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#configuration">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#config-scopes">Config scopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#config-profiles">Config profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#amazon-cloud">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id1">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#advanced-configuration">Advanced configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id2">AWS Batch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#amazon-s3-storage">Amazon S3 storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#s3-path">S3 path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#security-credentials">Security credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id3">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#google-cloud">Google Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id4">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#compute-engine">Compute Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#genomics-pipelines">Genomics Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#conda-environments">Conda environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#best-practices">Best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#advanced-settings">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#docker-containers">Docker containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id5">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id6">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#multiple-containers">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#executable-containers">Executable containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id7">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#singularity-containers">Singularity containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id8">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id9">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id10">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#singularity-docker-hub">Singularity &amp; Docker Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id11">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#apache-ignite">Apache Ignite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id12">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#execution-with-mpi">Execution with MPI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#id13">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id14">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#interactive-login">Interactive login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#running-in-a-pod">Running in a pod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#pod-settings">Pod settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#limitation">Limitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id15">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#tracing-visualisation">Tracing &amp; visualisation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#trace-report">Trace report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#dag-visualisation">DAG visualisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#weblog-via-http">Weblog via HTTP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#pipeline-sharing">Pipeline sharing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#id16">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#running-a-pipeline">Running a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#handling-revisions">Handling revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#commands-to-manage-projects">Commands to manage projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#scm-configuration-file">SCM configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#private-server-configuration">Private server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#local-repository-configuration">Local repository configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#publishing-your-pipeline">Publishing your pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#manage-dependencies">Manage dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#workflow-introspection">Workflow introspection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#runtime-metadata">Runtime metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#nextflow-metadata">Nextflow metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#error-handler">Error handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#notification-message">Notification message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#decoupling-metadata">Decoupling metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#mail-notifications">Mail &amp; Notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#mail-message">Mail message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#mail-notification">Mail notification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#workflow-notification">Workflow notification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#basic-pipeline">Basic pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#more-examples">More examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hello.html#faq">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-process-multiple-input-files-in-parallel">How do I process multiple input files in parallel?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-get-a-unique-id-based-on-the-file-name">How do I get a unique ID based on the file name?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-use-the-same-channel-multiple-times">How do I use the same channel multiple times?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-invoke-custom-scripts-and-tools">How do I invoke custom scripts and tools?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-iterate-over-a-process-n-times">How do I iterate over a process n times?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-iterate-over-nth-files-from-within-a-process">How do I iterate over nth files from within a process?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hello.html#how-do-i-use-a-specific-version-of-nextflow">How do I use a specific version of Nextflow?</a></li>
 </ul>
 </li>
 </ul>
@@ -176,7 +375,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hello.html" class="btn btn-neutral float-right" title="hello,world" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hello.html" class="btn btn-neutral float-right" title="Get started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
