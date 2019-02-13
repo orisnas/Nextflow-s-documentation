@@ -1,4 +1,4 @@
-# Basic concepts
+#  基本理念
 
 ## Processes and channels
 ## Execution abstraction

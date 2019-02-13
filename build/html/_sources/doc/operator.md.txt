@@ -1,4 +1,4 @@
-# Operators
+# 控制器(Operators)
 ## Filtering operators
 ## Transforming operators
 ## Splitting operators

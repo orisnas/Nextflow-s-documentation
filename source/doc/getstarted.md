@@ -1,7 +1,7 @@
-# Get started
+# 快速开始
 
-## Requirements
-## Installation
-## Your first script
+## 所需环境
+## 安装
+## 第一个脚本
 
 

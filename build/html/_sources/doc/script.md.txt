@@ -1,8 +1,8 @@
-# Nextflow scripting
+# Nextflow 脚本语言
 
-##    Language basics
-##    Closures
-##    Regular expressions
-##    Files and I/O
+##    语法基础
+##    闭包函数(匿名函数)
+##    正则表达式
+##    文件和I/O
 
 

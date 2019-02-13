@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nextflow scripting &mdash; Nextflow-ZH-documentation 0.0.1 文档</title>
+  <title>Nextflow 脚本语言 &mdash; Nextflow-ZH-documentation 0.0.1 文档</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Processes" href="process.html" />
-    <link rel="prev" title="Basic concepts" href="basic.html" /> 
+    <link rel="next" title="工序(Processes)" href="process.html" />
+    <link rel="prev" title="基本理念" href="basic.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,19 +83,19 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Nextflow scripting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#language-basics">Language basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#closures">Closures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#regular-expressions">Regular expressions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#files-and-i-o">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">快速开始</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">基本理念</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Nextflow 脚本语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">语法基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">闭包函数(匿名函数)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i-o">文件和I/O</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">工序(Processes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">通道(Channels)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">控制器(Operators)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">执行者(Executors)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -156,7 +156,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Nextflow scripting</li>
+      <li>Nextflow 脚本语言</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,19 +175,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="nextflow-scripting">
-<h1>Nextflow scripting<a class="headerlink" href="#nextflow-scripting" title="永久链接至标题">¶</a></h1>
-<div class="section" id="language-basics">
-<h2>Language basics<a class="headerlink" href="#language-basics" title="永久链接至标题">¶</a></h2>
+  <div class="section" id="nextflow">
+<h1>Nextflow 脚本语言<a class="headerlink" href="#nextflow" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>语法基础<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 </div>
-<div class="section" id="closures">
-<h2>Closures<a class="headerlink" href="#closures" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h2>闭包函数(匿名函数)<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 </div>
-<div class="section" id="regular-expressions">
-<h2>Regular expressions<a class="headerlink" href="#regular-expressions" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>正则表达式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 </div>
-<div class="section" id="files-and-i-o">
-<h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="永久链接至标题">¶</a></h2>
+<div class="section" id="i-o">
+<h2>文件和I/O<a class="headerlink" href="#i-o" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -199,10 +199,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="process.html" class="btn btn-neutral float-right" title="Processes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="process.html" class="btn btn-neutral float-right" title="工序(Processes)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="basic.html" class="btn btn-neutral float-left" title="Basic concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="basic.html" class="btn btn-neutral float-left" title="基本理念" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
