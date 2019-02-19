@@ -86,15 +86,19 @@
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">基本理念</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow 脚本语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="process.html">工序(Processes)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">通道(Channels)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">控制器(Operators)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">执行者(Executors)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#s3-path">S3 path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#security-credentials">Security credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-credentials">Security credentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aws-access-and-secret-keys">AWS access and secret keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-roles-amazon-ec2-instances">IAM roles Amazon EC2 instances</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
 </ul>
 </li>
@@ -161,7 +165,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/doc/amazons3.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/doc/amazons3.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,15 +179,72 @@
            <div itemprop="articleBody">
             
   <div class="section" id="amazon-s3-storage">
-<h1>Amazon S3 storage<a class="headerlink" href="#amazon-s3-storage" title="永久链接至标题">¶</a></h1>
+<span id="amazons3-page"></span><h1>Amazon S3 storage<a class="headerlink" href="#amazon-s3-storage" title="永久链接至标题">¶</a></h1>
+<p>Nextflow includes the support for Amazon S3 storage. Files stored in a S3 bucket can be accessed
+transparently in your pipeline script like any other file in the local file system.</p>
 <div class="section" id="s3-path">
 <h2>S3 path<a class="headerlink" href="#s3-path" title="永久链接至标题">¶</a></h2>
+<p>In order to access a S3 file you only need to prefix the file path with the <code class="docutils literal notranslate"><span class="pre">s3</span></code> schema and the <cite>bucket</cite> name
+where it is stored.</p>
+<p>For example if you need to access the file <code class="docutils literal notranslate"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal notranslate"><span class="pre">my-bucket</span></code>,
+that file can be accessed using the following fully qualified path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sequences</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p>The usual file operations can be applied on a path handle created using the above notation. For example the content
+of a S3 file can be printed as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://my-bucket/data/sequences.fa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<p>See section <a class="reference internal" href="script.html#script-file-io"><span class="std std-ref">文件 和 I/O</span></a> to learn more about available file operations.</p>
 </div>
 <div class="section" id="security-credentials">
 <h2>Security credentials<a class="headerlink" href="#security-credentials" title="永久链接至标题">¶</a></h2>
+<p>Amazon access credentials can be provided in two ways:</p>
+<ol class="arabic simple">
+<li>Using AWS access and secret keys in your pipeline configuration.</li>
+<li>Using IAM roles to grant access to S3 storage on Amazon EC2 instances.</li>
+</ol>
+<div class="section" id="aws-access-and-secret-keys">
+<h3>AWS access and secret keys<a class="headerlink" href="#aws-access-and-secret-keys" title="永久链接至标题">¶</a></h3>
+<p>The AWS access and secret keys can be specified by using the <code class="docutils literal notranslate"><span class="pre">aws</span></code> section in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> configuration.
+file as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+  <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS access key&gt;&#39;</span>
+  <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS secret key&gt;&#39;</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS region identifier&gt;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the access credentials are not found in the above file, Nextflow looks for AWS credentials in a number of different
+places, including environment variables and local AWS configuration files.</p>
+<p>Nextflow looks for AWS credentials in the following order:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file in the pipeline execution directory</li>
+<li>the environment variables <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></li>
+<li>the environment variables <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_KEY</span></code></li>
+<li>the <cite>default</cite> profile in the AWS credentials file located at <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code></li>
+<li>the <cite>default</cite> profile in the AWS client configuration file located at <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code></li>
+<li>the temporary AWS credentials provided by an IAM instance role. See <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation for details.</li>
+</ol>
+</div></blockquote>
+<p>More information regarding <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials</a>
+are available in Amazon documentation.</p>
+</div>
+<div class="section" id="iam-roles-amazon-ec2-instances">
+<h3>IAM roles Amazon EC2 instances<a class="headerlink" href="#iam-roles-amazon-ec2-instances" title="永久链接至标题">¶</a></h3>
+<p>When running your pipeline into a Ec2 instance, IAM roles can be used to grant access to AWS resources.</p>
+<p>In this scenario, you only need to launch the Ec2 instance specifying a IAM role which includes a
+<cite>S3 full access</cite> policy. Nextflow will detected and acquire automatically the access grant to the S3 storage,
+without any further configuration.</p>
+<p>Learn more about <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-usingrole-ec2instance.html">Using IAM Roles to Delegate Permissions to Applications that Run on Amazon EC2</a> on Amazon
+documentation.</p>
+</div>
 </div>
 <div class="section" id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="永久链接至标题">¶</a></h2>
+<p>Read <a class="reference internal" href="config.html#config-aws"><span class="std std-ref">AWS configuration</span></a> section to learn more about advanced S3 client configuration options.</p>
 </div>
 </div>
 

@@ -86,11 +86,11 @@
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">基本理念</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow 脚本语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="process.html">工序(Processes)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">通道(Channels)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">控制器(Operators)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">执行者(Executors)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -164,7 +164,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/doc/metadata.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/doc/metadata.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,24 +178,239 @@
            <div itemprop="articleBody">
             
   <div class="section" id="workflow-introspection">
-<h1>Workflow introspection<a class="headerlink" href="#workflow-introspection" title="永久链接至标题">¶</a></h1>
+<span id="metadata-page"></span><h1>Workflow introspection<a class="headerlink" href="#workflow-introspection" title="永久链接至标题">¶</a></h1>
 <div class="section" id="runtime-metadata">
 <h2>Runtime metadata<a class="headerlink" href="#runtime-metadata" title="永久链接至标题">¶</a></h2>
+<p>The implicit <code class="docutils literal notranslate"><span class="pre">workflow</span></code> object allows you to access some workflow and runtime metadata in your Nextflow scripts.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;Project : $workflow.projectDir&quot;</span>
+<span class="n">println</span> <span class="s2">&quot;Git info: $workflow.repository - $workflow.revision [$workflow.commitId]&quot;</span>
+<span class="n">println</span> <span class="s2">&quot;Cmd line: $workflow.commandLine&quot;</span>
+<span class="n">println</span> <span class="s2">&quot;Manifest&#39;s pipeline version: $workflow.manifest.version&quot;</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">小技巧</p>
+<p class="last">To shortcut the access to multiple <code class="docutils literal notranslate"><span class="pre">workflow</span></code> properties you can use the Groovy
+<a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/lang/Object.html#with(groovy.lang.Closure)">with</a> method.</p>
+</div>
+<p>The following table lists the properties that can be accessed on the <code class="docutils literal notranslate"><span class="pre">workflow</span></code> object:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scriptId</td>
+<td>Project main script unique hash ID.</td>
+</tr>
+<tr class="row-odd"><td>scriptName</td>
+<td>Project main script file name.</td>
+</tr>
+<tr class="row-even"><td>scriptFile</td>
+<td>Project main script file path.</td>
+</tr>
+<tr class="row-odd"><td>repository</td>
+<td>Project repository Git remote URL.</td>
+</tr>
+<tr class="row-even"><td>commitId</td>
+<td>Git commit ID of the executed workflow repository.</td>
+</tr>
+<tr class="row-odd"><td>revision</td>
+<td>Git branch/tag of the executed workflow repository.</td>
+</tr>
+<tr class="row-even"><td>projectDir</td>
+<td>Directory where the workflow project is stored in the computer.</td>
+</tr>
+<tr class="row-odd"><td>launchDir</td>
+<td>Directory where the workflow execution has been launched.</td>
+</tr>
+<tr class="row-even"><td>workDir</td>
+<td>Workflow working directory.</td>
+</tr>
+<tr class="row-odd"><td>homeDir</td>
+<td>User system home directory.</td>
+</tr>
+<tr class="row-even"><td>userName</td>
+<td>User system account name.</td>
+</tr>
+<tr class="row-odd"><td>configFiles</td>
+<td>Configuration files used for the workflow execution.</td>
+</tr>
+<tr class="row-even"><td>container</td>
+<td>Docker image used to run workflow tasks. When more than one image is used
+it returns a map object containing <cite>[process name, image name]</cite> pair entries.</td>
+</tr>
+<tr class="row-odd"><td>containerEngine</td>
+<td>Returns the name of the container engine (e.g. docker or singularity) or null
+if no container engine is enabled.</td>
+</tr>
+<tr class="row-even"><td>commandLine</td>
+<td>Command line as entered by the user to launch the workflow execution.</td>
+</tr>
+<tr class="row-odd"><td>profile</td>
+<td>Used configuration profile.</td>
+</tr>
+<tr class="row-even"><td>runName</td>
+<td>Mnemonic name assigned to this execution instance.</td>
+</tr>
+<tr class="row-odd"><td>sessionId</td>
+<td>Unique identifier (UUID) associated to current execution.</td>
+</tr>
+<tr class="row-even"><td>resume</td>
+<td>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> whenever the current instance is resumed from a previous execution.</td>
+</tr>
+<tr class="row-odd"><td>start</td>
+<td>Timestamp of workflow at execution start.</td>
+</tr>
+<tr class="row-even"><td>manifest</td>
+<td>Entries of the workflow manifest.</td>
+</tr>
+<tr class="row-odd"><td><sup>✝</sup> complete</td>
+<td>Timestamp of workflow when execution is completed.</td>
+</tr>
+<tr class="row-even"><td><sup>✝</sup> duration</td>
+<td>Time elapsed to complete workflow execution.</td>
+</tr>
+<tr class="row-odd"><td><sup>*</sup> success</td>
+<td>Reports if the execution completed successfully.</td>
+</tr>
+<tr class="row-even"><td><sup>*</sup> exitStatus</td>
+<td>Exit status of the task that caused the workflow execution to fail.</td>
+</tr>
+<tr class="row-odd"><td><sup>*</sup> errorMessage</td>
+<td>Error message of the task that caused the workflow execution to fail.</td>
+</tr>
+<tr class="row-even"><td><sup>*</sup> errorReport</td>
+<td>Detailed error of the task that caused the workflow execution to fail.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Properties marked with a <cite>✝</cite> are accessible only in the workflow completion handler.</div>
+<div class="line">Properties marked with a <cite>*</cite> are accessible only in the workflow completion and error handlers. See the <a class="reference internal" href="#completion-handler">Completion handler</a> section for details.</div>
+<div class="line"><br /></div>
+</div>
 </div>
 <div class="section" id="nextflow-metadata">
 <h2>Nextflow metadata<a class="headerlink" href="#nextflow-metadata" title="永久链接至标题">¶</a></h2>
+<p>The implicit <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> object allows you to access the metadata information of the Nextflow runtime.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>nextflow.version</td>
+<td>Nextflow runtime version number.</td>
+</tr>
+<tr class="row-odd"><td>nextflow.build</td>
+<td>Nextflow runtime build number.</td>
+</tr>
+<tr class="row-even"><td>nextflow.timestamp</td>
+<td>Nextflow runtime compile timestamp.</td>
+</tr>
+</tbody>
+</table>
+<p>The method <code class="docutils literal notranslate"><span class="pre">nextflow.version.matches</span></code> allows you to check if the Nextflow runtime satisfies the version
+requirement eventually needed by your workflow script. The required version string can be prefixed with the usual
+comparison operators eg <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, etc. or postfixed with the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to specify a minimal version
+requirement. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if( !nextflow.version.matches(&#39;0.22+&#39;) ) {
+    println &quot;This workflow requires Nextflow version 0.22 or greater -- You are running version $nextflow.version&quot;
+    exit 1
+}
+</pre></div>
+</div>
 </div>
 <div class="section" id="completion-handler">
-<h2>Completion handler<a class="headerlink" href="#completion-handler" title="永久链接至标题">¶</a></h2>
+<span id="metadata-completion-handler"></span><h2>Completion handler<a class="headerlink" href="#completion-handler" title="永久链接至标题">¶</a></h2>
+<p>Due to the asynchronous nature of Nextflow the termination of a script does not correspond to the termination
+of the running workflow. Thus some information, only available on execution completion, needs to be accessed by
+using an asynchronous handler.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">onComplete</span></code> event handler is invoked by the framework when the workflow execution is completed. It allows one
+to access the workflow termination status and other useful information. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Pipeline completed at: $workflow.complete&quot;</span>
+    <span class="n">println</span> <span class="s2">&quot;Execution status: ${ workflow.success ? &#39;OK&#39; : &#39;failed&#39; }&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="error-handler">
-<h2>Error handler<a class="headerlink" href="#error-handler" title="永久链接至标题">¶</a></h2>
+<span id="metadata-error-handler"></span><h2>Error handler<a class="headerlink" href="#error-handler" title="永久链接至标题">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">onError</span></code> event handler is invoked by Nextflow when a runtime or process error caused the pipeline execution to stop.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onError</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Oops... Pipeline execution stopped with the following message: $</span><span class="si">{workflow.errorMessage}</span><span class="s2">&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Both the <code class="docutils literal notranslate"><span class="pre">onError</span></code> and <code class="docutils literal notranslate"><span class="pre">onComplete</span></code> handlers are invoked when an error condition is encountered.
+However the first is called as soon as the error is raised, while the second just before the pipeline execution
+is going terminate. When using the <code class="docutils literal notranslate"><span class="pre">finish</span></code> <a class="reference internal" href="process.html#process-page-error-strategy"><span class="std std-ref">errorStrategy</span></a>, between the two there could be
+a significant time gap depending by the time required to complete any pending job.</p>
+</div>
 </div>
 <div class="section" id="notification-message">
 <h2>Notification message<a class="headerlink" href="#notification-message" title="永久链接至标题">¶</a></h2>
+<p>Nextflow does not provide a built-in mechanism to send emails or other messages. However the <code class="docutils literal notranslate"><span class="pre">mail</span></code> standard Linux
+tool (or an equivalent one) can easily be used to send a notification message when the workflow execution is completed,
+as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">subject</span> <span class="o">=</span> <span class="s1">&#39;My pipeline execution&#39;</span>
+    <span class="k">def</span> <span class="nf">recipient</span> <span class="o">=</span> <span class="s1">&#39;me@gmail.com&#39;</span>
+
+    <span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">recipient</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">    Pipeline execution summary</span>
+<span class="s2">    ---------------------------</span>
+<span class="s2">    Completed at: $</span><span class="si">{workflow.complete}</span><span class="s2"></span>
+<span class="s2">    Duration    : $</span><span class="si">{workflow.duration}</span><span class="s2"></span>
+<span class="s2">    Success     : $</span><span class="si">{workflow.success}</span><span class="s2"></span>
+<span class="s2">    workDir     : $</span><span class="si">{workflow.workDir}</span><span class="s2"></span>
+<span class="s2">    exit status : $</span><span class="si">{workflow.exitStatus}</span><span class="s2"></span>
+<span class="s2">    Error report: ${workflow.errorReport ?: &#39;-&#39;}</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="decoupling-metadata">
 <h2>Decoupling metadata<a class="headerlink" href="#decoupling-metadata" title="永久链接至标题">¶</a></h2>
+<p>The workflow event handlers can be defined also in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file. This is useful to
+decouple the handling of pipeline events from the main script logic.</p>
+<p>When the event handlers are included in a configuration file the only difference is that the <code class="docutils literal notranslate"><span class="pre">onComplete</span></code> and
+the <code class="docutils literal notranslate"><span class="pre">onError</span></code> closures have to be defined by using the assignment operator as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="nb">any</span> <span class="n">workflow</span> <span class="nb">property</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">here</span>
+    <span class="n">println</span> <span class="s2">&quot;Pipeline complete&quot;</span>
+    <span class="n">println</span> <span class="s2">&quot;Command line: $workflow.commandLine&quot;</span>
+<span class="p">}</span>
+
+
+<span class="n">workflow</span><span class="o">.</span><span class="n">onError</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Oops .. something when wrong&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">It is possible to define a workflow event handlers both in the pipeline script <strong>and</strong> in the
+configuration file.</p>
+</div>
 </div>
 </div>
 

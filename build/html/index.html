@@ -85,11 +85,11 @@
 <li class="toctree-l1"><a class="reference internal" href="doc/getstarted.html">开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/basic.html">基本理念</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/script.html">Nextflow 脚本语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/process.html">工序(Processes)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/channel.html">通道(Channels)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/operator.html">控制器(Operators)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/executor.html">执行者(Executors)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/config.html">配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/google.html">Google Cloud</a></li>
@@ -195,19 +195,19 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="doc/basic.html">基本理念</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/basic.html#processes-and-channels">Processes and channels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#execution-abstraction">Execution abstraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#scripting-language">Scripting language</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#configuration-options">Configuration options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#id2">执行抽象</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#id3">脚本语言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/basic.html#id4">配置选项</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="doc/script.html">Nextflow 脚本语言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/script.html#id1">语法基础</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/script.html#id2">闭包函数(匿名函数)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/script.html#id3">正则表达式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/script.html#i-o">文件和I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/script.html#id1">语言基础知识</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/script.html#script-closure">闭包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/script.html#script-regexp">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/script.html#i-o">文件 和 I/O</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/process.html">工序(Processes)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="doc/process.html">Processes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/process.html#script">Script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/process.html#inputs">Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/process.html#outputs">Outputs</a></li>
@@ -215,14 +215,14 @@
 <li class="toctree-l2"><a class="reference internal" href="doc/process.html#directives">Directives</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/channel.html">通道(Channels)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="doc/channel.html">Channels</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/channel.html#channel-types">Channel types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/channel.html#channel-factory">Channel factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/channel.html#binding-values">Binding values</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/channel.html#observing-events">Observing events</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/operator.html">控制器(Operators)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="doc/operator.html">Operators</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/operator.html#filtering-operators">Filtering operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/operator.html#transforming-operators">Transforming operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/operator.html#splitting-operators">Splitting operators</a></li>
@@ -232,7 +232,7 @@
 <li class="toctree-l2"><a class="reference internal" href="doc/operator.html#other-operators">Other operators</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/executor.html">执行者(Executors)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="doc/executor.html">Executors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/executor.html#local">Local</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/executor.html#sge">SGE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/executor.html#lsf">LSF</a></li>
@@ -247,11 +247,11 @@
 <li class="toctree-l2"><a class="reference internal" href="doc/executor.html#ga4gh-tes">GA4GH TES</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/config.html">配置</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/config.html#id2">配置文件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc/config.html#configuration-file">Configuration file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/config.html#config-scopes">Config scopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/config.html#config-profiles">Config profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/config.html#id3">环境变量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="doc/awscloud.html">Amazon Cloud</a><ul>
@@ -274,7 +274,7 @@
 <li class="toctree-l1"><a class="reference internal" href="doc/google.html">Google Cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/google.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/google.html#compute-engine">Compute Engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/google.html#genomics-pipelines">Genomics Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/google.html#google-pipelines">Genomics Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/google.html#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
@@ -289,7 +289,6 @@
 <li class="toctree-l2"><a class="reference internal" href="doc/docker.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/docker.html#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/docker.html#multiple-containers">Multiple containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/docker.html#executable-containers">Executable containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/docker.html#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>

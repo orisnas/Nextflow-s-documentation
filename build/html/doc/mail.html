@@ -86,11 +86,11 @@
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">基本理念</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow 脚本语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="process.html">工序(Processes)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">通道(Channels)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">控制器(Operators)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">执行者(Executors)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -103,7 +103,13 @@
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Mail &amp; Notifications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#mail-message">Mail message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mail-message">Mail message</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-mail">Basic mail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-mail">Advanced mail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mail-attachments">Mail attachments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mail-configuration">Mail configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#mail-notification">Mail notification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-notification">Workflow notification</a></li>
 </ul>
@@ -161,7 +167,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/doc/mail.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/doc/mail.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,15 +181,209 @@
            <div itemprop="articleBody">
             
   <div class="section" id="mail-notifications">
-<h1>Mail &amp; Notifications<a class="headerlink" href="#mail-notifications" title="永久链接至标题">¶</a></h1>
+<span id="mail-page"></span><h1>Mail &amp; Notifications<a class="headerlink" href="#mail-notifications" title="永久链接至标题">¶</a></h1>
 <div class="section" id="mail-message">
 <h2>Mail message<a class="headerlink" href="#mail-message" title="永久链接至标题">¶</a></h2>
+<p>The built-in function <code class="docutils literal notranslate"><span class="pre">sendMail</span></code> allows you to send a mail message from a workflow script.</p>
+<div class="section" id="basic-mail">
+<span id="mail-basic"></span><h3>Basic mail<a class="headerlink" href="#basic-mail" title="永久链接至标题">¶</a></h3>
+<p>The mail attributes are specified as named parameters or providing an equivalent associative array as argument.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sendMail</span><span class="p">(</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;you@gmail.com&#39;</span><span class="p">,</span>
+          <span class="n">subject</span><span class="p">:</span> <span class="s1">&#39;Catch up&#39;</span><span class="p">,</span>
+          <span class="n">body</span><span class="p">:</span> <span class="s1">&#39;Hi, how are you!&#39;</span><span class="p">,</span>
+          <span class="n">attach</span><span class="p">:</span> <span class="s1">&#39;/some/path/attachment/file.txt&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>therefore this is equivalent to write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="o">=</span> <span class="p">[</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;you@gmail.com&#39;</span><span class="p">,</span>
+         <span class="n">subject</span><span class="p">:</span> <span class="s1">&#39;Catch up&#39;</span><span class="p">,</span>
+         <span class="n">body</span><span class="p">:</span> <span class="s1">&#39;Hi, how are you!&#39;</span><span class="p">,</span>
+         <span class="n">attach</span><span class="p">:</span> <span class="s1">&#39;/some/path/attachment/file.txt&#39;</span> <span class="p">]</span>
+
+<span class="n">sendMail</span><span class="p">(</span><span class="n">mail</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following parameters can be specified:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>to <sup>*</sup></td>
+<td>The mail target recipients.</td>
+</tr>
+<tr class="row-odd"><td>cc <sup>*</sup></td>
+<td>The mail CC recipients.</td>
+</tr>
+<tr class="row-even"><td>bcc <sup>*</sup></td>
+<td>The mail BCC recipients.</td>
+</tr>
+<tr class="row-odd"><td>from <sup>*</sup></td>
+<td>The mail sender address.</td>
+</tr>
+<tr class="row-even"><td>subject</td>
+<td>The mail subject.</td>
+</tr>
+<tr class="row-odd"><td>charset</td>
+<td>The mail content charset (default: <code class="docutils literal notranslate"><span class="pre">UTF-8</span></code>).</td>
+</tr>
+<tr class="row-even"><td>text</td>
+<td>The mail plain text content.</td>
+</tr>
+<tr class="row-odd"><td>body</td>
+<td>The mail body content. It can be either plain text or HTML content.</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>The mail body mime type. If not specified it’s automatically detected.</td>
+</tr>
+<tr class="row-odd"><td>attach</td>
+<td>Single file or a list of files to be included as mail attachments.</td>
+</tr>
+</tbody>
+</table>
+<p><cite>*</cite> Multiple email addresses can be specified separating them with a comma.</p>
+</div>
+<div class="section" id="advanced-mail">
+<span id="mail-advanced"></span><h3>Advanced mail<a class="headerlink" href="#advanced-mail" title="永久链接至标题">¶</a></h3>
+<p>An second version of the <code class="docutils literal notranslate"><span class="pre">sendMail</span></code> allows a more idiomatic syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sendMail</span> <span class="p">{</span>
+    <span class="n">to</span> <span class="s1">&#39;you@gmail.com&#39;</span>
+    <span class="kn">from</span> <span class="s1">&#39;me@gmail.com&#39;</span>
+    <span class="n">attach</span> <span class="s1">&#39;/some/path/attachment/file.txt&#39;</span>
+    <span class="n">attach</span> <span class="s1">&#39;/other/path/image.png&#39;</span>
+    <span class="n">subject</span> <span class="s1">&#39;Catch up&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Hi there,</span>
+<span class="sd">    Look! Multi-lines</span>
+<span class="sd">    mail content!</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The same attributes listed in the table in the previous section are allowed.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">When it terminates with a string expression it’s implicitly interpreted as the mail body content, therefore
+the <code class="docutils literal notranslate"><span class="pre">body</span></code> parameter can be omitted as shown above.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">小技巧</p>
+<p class="last">To send an <cite>alternative</cite> mail message that includes either text and HTML content use both the <code class="docutils literal notranslate"><span class="pre">text</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code> attributes.
+The first must be used for the plain text content, while the second for the rich HTML message.</p>
+</div>
+</div>
+<div class="section" id="mail-attachments">
+<span id="id1"></span><h3>Mail attachments<a class="headerlink" href="#mail-attachments" title="永久链接至标题">¶</a></h3>
+<p>When using the curly brackets syntax, the <code class="docutils literal notranslate"><span class="pre">attach</span></code> parameter can be repeated two or more times to include
+multiple attachments in the mail message.</p>
+<p>Moreover for each attachment it’s possible to specify one or more of the following optional attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>contentId</td>
+<td>Defines the <cite>Content-ID</cite> header field for the attachment.</td>
+</tr>
+<tr class="row-odd"><td>disposition</td>
+<td>Defines the <cite>Content-Disposition</cite> header field for the attachment.</td>
+</tr>
+<tr class="row-even"><td>fileName</td>
+<td>Defines the <cite>filename</cite> parameter of the “Content-Disposition” header field.</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>Defines the <cite>Content-Description</cite> header field for the attachment.</td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sendMail</span> <span class="p">{</span>
+    <span class="n">to</span> <span class="s1">&#39;you@dot.com&#39;</span>
+    <span class="n">attach</span> <span class="s1">&#39;/some/file.txt&#39;</span><span class="p">,</span> <span class="n">fileName</span><span class="p">:</span> <span class="s1">&#39;manuscript.txt&#39;</span>
+    <span class="n">attach</span> <span class="s1">&#39;/other/image.png&#39;</span><span class="p">,</span> <span class="n">disposition</span><span class="p">:</span> <span class="s1">&#39;inline&#39;</span>
+    <span class="n">subject</span> <span class="s1">&#39;Sending documents&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    the mail body</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mail-configuration">
+<span id="mail-config"></span><h3>Mail configuration<a class="headerlink" href="#mail-configuration" title="永久链接至标题">¶</a></h3>
+<p>If no mail server configuration is provided, Nextflow tries to send the email by using the external mail command
+eventually provided by the underlying system (eg. <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> or <code class="docutils literal notranslate"><span class="pre">mail</span></code>).</p>
+<p>If your system does not provide access to none of the above you can configure a SMTP server in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="p">{</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;your.smtp-server.com&#39;</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">475</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;my-user&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="config.html#config-mail"><span class="std std-ref">mail scope</span></a> section to learn more the mail server configuration options.</p>
+</div>
 </div>
 <div class="section" id="mail-notification">
 <h2>Mail notification<a class="headerlink" href="#mail-notification" title="永久链接至标题">¶</a></h2>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">sendMail</span></code> function with a <a class="reference internal" href="metadata.html#metadata-completion-handler"><span class="std std-ref">workflow completion handler</span></a>
+to notify the completion of a workflow completion. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
+
+    <span class="k">def</span> <span class="nf">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">        Pipeline execution summary</span>
+<span class="s2">        ---------------------------</span>
+<span class="s2">        Completed at: $</span><span class="si">{workflow.complete}</span><span class="s2"></span>
+<span class="s2">        Duration    : $</span><span class="si">{workflow.duration}</span><span class="s2"></span>
+<span class="s2">        Success     : $</span><span class="si">{workflow.success}</span><span class="s2"></span>
+<span class="s2">        workDir     : $</span><span class="si">{workflow.workDir}</span><span class="s2"></span>
+<span class="s2">        exit status : $</span><span class="si">{workflow.exitStatus}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="o">.</span><span class="n">stripIndent</span><span class="p">()</span>
+
+    <span class="n">sendMail</span><span class="p">(</span><span class="n">to</span><span class="p">:</span> <span class="s1">&#39;you@gmail.com&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">:</span> <span class="s1">&#39;My pipeline execution&#39;</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">msg</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is useful to send a custom notification message. Note however that Nextflow includes a built-in notification mechanism
+which is the most convenient way to notify the completion of a workflow execution in most cases. Read the following
+section to learn about it.</p>
 </div>
 <div class="section" id="workflow-notification">
 <h2>Workflow notification<a class="headerlink" href="#workflow-notification" title="永久链接至标题">¶</a></h2>
+<p>Nextflow includes a built-in workflow notification features that automatically sends a notification message
+when a workflow execution terminates.</p>
+<p>To enable simply specify the <code class="docutils literal notranslate"><span class="pre">-N</span></code> option when launching the pipeline execution. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">N</span> <span class="o">&lt;</span><span class="n">recipient</span> <span class="n">address</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>It will send a notification mail when the execution completes similar to the one shown below:</p>
+<img alt="../_images/workflow-notification-min.png" src="../_images/workflow-notification-min.png" />
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">By default the notification message is sent by using the <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> system tool which is assumed to be
+available in the computer where Nextflow is running. Make sure it’s properly installed and configured.
+Alternatively provide the SMTP server configuration settings to use the Nextflow
+built-in mail support, which doesn’t require any external system tool.</p>
+</div>
+<p>See the <a class="reference internal" href="#mail-configuration">Mail configuration</a> section to learn about the available mail delivery options and configuration settings.</p>
+<p>Read <a class="reference internal" href="config.html#config-notification"><span class="std std-ref">Notification scope</span></a> section to learn more about the workflow notification
+configuration details.</p>
 </div>
 </div>
 

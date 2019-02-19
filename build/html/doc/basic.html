@@ -86,17 +86,17 @@
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">开始</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">基本理念</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#processes-and-channels">Processes and channels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#execution-abstraction">Execution abstraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scripting-language">Scripting language</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">执行抽象</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">脚本语言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">配置选项</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow 脚本语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="process.html">工序(Processes)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">通道(Channels)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">控制器(Operators)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">执行者(Executors)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -162,7 +162,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/doc/basic.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/doc/basic.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,17 +177,99 @@
             
   <div class="section" id="id1">
 <h1>基本理念<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p><cite>Nextflow</cite> 是一个交互式的流程框架, 一个特定领域编程语言(a programming <a class="reference external" href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> ). 它使数据密集型计算流程的串写变得容易.</p>
+<p>它是围绕这个想法设计的– Linux 是数据科学的通用平台. Linux提供了很多简单但强大的命令行和脚本工具使我们可以很方便的操作复杂的数据.</p>
+<p><cite>Nextflow</cite> 扩展了这一特点, 它增加了定义复杂的程序交互和高级并行计算环境的能力,这些都是基于`dataflow`编程模型.</p>
 <div class="section" id="processes-and-channels">
 <h2>Processes and channels<a class="headerlink" href="#processes-and-channels" title="永久链接至标题">¶</a></h2>
+<p>事实上, 一个 Nextflow 流程脚本是通过将不同的processes 连接在一起而生成.
+每一个process 可以用任意的脚本语言来编写, 而这些脚本语言可以通过Linux平台来执行 (Bash, Perl, Ruby, Python, etc.).</p>
+<p>所有的Processes 都是独立的执行的, 它们之间相互隔离, i.e. 它们并不共享公共（可写）状态.
+它们通讯的唯一方式是通过异步 FIFO 队列( 在Nextflow中叫做 <cite>channels</cite> ).</p>
+<p>任何 process 可以定义一个或多个 channels 作为 <cite>input</cite> and <cite>output</cite>. 这些 processes 之间的交互, 以及根本的管道执行流自己本身, 都含蓄的由这些 input 和 output 的申明来定义.</p>
+<p>A Nextflow script looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Script</span> <span class="n">parameters</span>
+<span class="n">params</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;/some/data/sample.fa&quot;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="s2">&quot;/some/path/pdb&quot;</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+<span class="n">query_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+
+<span class="n">process</span> <span class="n">blastSearch</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">query</span> <span class="kn">from</span> <span class="nn">query_ch</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span> <span class="s2">&quot;top_hits.txt&quot;</span> <span class="n">into</span> <span class="n">top_hits_ch</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    blastp -db $db -query $query -outfmt 6 &gt; blast_result</span>
+<span class="sd">    cat blast_result | head -n 10 | cut -f 2 &gt; top_hits.txt</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">extractTopHits</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">top_hits</span> <span class="kn">from</span> <span class="nn">top_hits_ch</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span> <span class="s2">&quot;sequences.txt&quot;</span> <span class="n">into</span> <span class="n">sequences_ch</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    blastdbcmd -db $db -entry_batch $top_hits &gt; sequences.txt</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="execution-abstraction">
-<h2>Execution abstraction<a class="headerlink" href="#execution-abstraction" title="永久链接至标题">¶</a></h2>
+<p>上面的例子定义了两个processes. 它们的执行顺序并不是有它们在脚本的顺序来决定, 事实上, <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code>
+process 在脚本中位于 <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> 前 (it could also be written the other way around).</p>
+<p>反而是因为, 第一个process 在他的 <code class="docutils literal notranslate"><span class="pre">output</span></code> 申明中定义了 channel <code class="docutils literal notranslate"><span class="pre">top_hits_ch</span></code> , 而 process <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> 在它的 <code class="docutils literal notranslate"><span class="pre">input</span></code> 申明中定义了这个 channel . 这样通讯连接就建立了.</p>
+<p>通过这个 channel的连接意味着 <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> 一直等待着 <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> 的output, 一旦channel中有内容它就开始运行.</p>
+<p>Read the <a class="reference internal" href="channel.html#channel-page"><span class="std std-ref">Channel</span></a> and <a class="reference internal" href="process.html#process-page"><span class="std std-ref">Process</span></a> sections to learn more about these features.</p>
 </div>
-<div class="section" id="scripting-language">
-<h2>Scripting language<a class="headerlink" href="#scripting-language" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h2>执行抽象<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>当过程定义了必须执行什么命令或脚本时，执行器(<code class="docutils literal notranslate"><span class="pre">executor</span></code>)确定脚本如何实际运行在目标系统上。</p>
+<p>如果特殊指明, processes会在本地电脑上执行. 本地执行对与流程开发和测试是非常有用的. 但是对生产环境的流程, 往往 HPC(高性能计算, High Performance Computing) 和 cloud platform 是需要的.</p>
+<p>换句话说,  <cite>Nextflow</cite> 提供了流程的功能逻辑和底层执行系统之间的抽象化.
+Thus it is possible to write a pipeline once and to seamlessly run it on your computer, a grid platform, or the cloud,
+without modifying it, by simply defining the target execution platform in the configuration file.</p>
+<p>支持下面的成批调度程序:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://gridscheduler.sourceforge.net/">Open grid engine</a></li>
+<li><a class="reference external" href="http://www.univa.com/">Univa grid engine</a></li>
+<li><a class="reference external" href="http://www.ibm.com/systems/technicalcomputing/platformcomputing/products/lsf/">Platform LSF</a></li>
+<li><a class="reference external" href="https://computing.llnl.gov/linux/slurm/">Linux SLURM</a></li>
+<li><a class="reference external" href="http://www.pbsworks.com/gridengine/">PBS Works</a></li>
+<li><a class="reference external" href="http://www.adaptivecomputing.com/products/open-source/torque/">Torque</a></li>
+<li><a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a></li>
+</ul>
+<p>支持下面的云平台:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://aws.amazon.com/">Amazon Web Services (AWS)</a></li>
+<li><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform (GCP)</a></li>
+<li><a class="reference external" href="https://kubernetes.io/">Kubernetes</a></li>
+</ul>
+<p>Read the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> to learn more about the Nextflow executors.</p>
 </div>
-<div class="section" id="configuration-options">
-<h2>Configuration options<a class="headerlink" href="#configuration-options" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>脚本语言<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><cite>Nextflow</cite> 被设计成具有最小的学习曲线，而不需要学习一种新的编程语言. 在大多数情况下，用户可以利用他们当前的技能来开发下一个tflow工作流. 然而，它还提供了强大的脚本DSL.</p>
+<p>Nextflow 脚本是 <a class="reference external" href="http://en.wikipedia.org/wiki/Groovy_(programming_language)">Groovy 编程语言</a> 的扩展, 而Groovy是Java编程语言的超集.Groovy可以被认为是Java的Python，因为它简化了代码的编写，而且更容易接近.</p>
+<p>Read the <a class="reference internal" href="script.html#script-page"><span class="std std-ref">Nextflow 脚本语言</span></a> section to learn about the Nextflow scripting language.</p>
+</div>
+<div class="section" id="id4">
+<h2>配置选项<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>流程配置属性在流程执行目录中名为 <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> 的文件中定义.</p>
+<p>此文件可用于定义要使用哪个executor、流程(process)的环境变量、管道(pipeline)参数等.</p>
+<p>基本配置文件可能是这样的:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+  <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
+  <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;cn-el6&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Read the <a class="reference internal" href="config.html#config-page"><span class="std std-ref">Configuration</span></a> section to learn more about the Nextflow configuration file and settings.</p>
 </div>
 </div>
 
